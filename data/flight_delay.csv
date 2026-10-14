@@ -1,0 +1,41 @@
+airline,origin,destination,scheduled_hour,day_of_week,weather,traffic_level,delay_minutes
+Aurora Air,AAA,BBB,6,0,clear,low,4
+Aurora Air,AAA,CCC,8,1,clear,medium,12
+Aurora Air,BBB,AAA,9,2,light_rain,medium,18
+Aurora Air,CCC,AAA,17,4,clear,high,21
+Aurora Air,BBB,CCC,19,5,fog,high,38
+Aurora Air,CCC,BBB,21,6,storm,high,67
+Aurora Air,AAA,BBB,11,3,light_rain,low,14
+Aurora Air,BBB,AAA,14,0,clear,medium,9
+Aurora Air,CCC,AAA,7,5,fog,medium,22
+Aurora Air,AAA,CCC,16,6,storm,high,58
+Meridian Air,AAA,BBB,5,1,clear,low,2
+Meridian Air,AAA,CCC,10,2,clear,medium,11
+Meridian Air,BBB,AAA,13,3,light_rain,medium,19
+Meridian Air,CCC,AAA,18,4,clear,high,24
+Meridian Air,BBB,CCC,20,6,fog,high,41
+Meridian Air,CCC,BBB,22,5,storm,high,73
+Meridian Air,AAA,BBB,7,4,light_rain,low,10
+Meridian Air,BBB,AAA,15,6,clear,medium,12
+Meridian Air,CCC,AAA,9,0,fog,medium,26
+Meridian Air,AAA,CCC,17,1,storm,high,61
+Northstar,AAA,BBB,6,2,clear,low,3
+Northstar,AAA,CCC,9,3,clear,medium,13
+Northstar,BBB,AAA,12,4,light_rain,medium,20
+Northstar,CCC,AAA,16,5,clear,high,19
+Northstar,BBB,CCC,18,0,fog,high,35
+Northstar,CCC,BBB,23,6,storm,high,78
+Northstar,AAA,BBB,8,5,light_rain,low,12
+Northstar,BBB,AAA,14,1,clear,medium,8
+Northstar,CCC,AAA,10,6,fog,medium,24
+Northstar,AAA,CCC,19,2,storm,high,65
+Pacific Connect,AAA,BBB,7,3,clear,low,6
+Pacific Connect,AAA,CCC,11,4,clear,medium,15
+Pacific Connect,BBB,AAA,15,5,light_rain,medium,23
+Pacific Connect,CCC,AAA,17,6,clear,high,25
+Pacific Connect,BBB,CCC,21,2,fog,high,43
+Pacific Connect,CCC,BBB,20,0,storm,high,70
+Pacific Connect,AAA,BBB,9,6,light_rain,low,13
+Pacific Connect,BBB,AAA,13,2,clear,medium,10
+Pacific Connect,CCC,AAA,8,1,fog,medium,21
+Pacific Connect,AAA,CCC,18,3,storm,high,63

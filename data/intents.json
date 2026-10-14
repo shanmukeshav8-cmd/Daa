@@ -1,0 +1,149 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hello",
+        "hi",
+        "hey there",
+        "good morning",
+        "good afternoon",
+        "good evening",
+        "hello airport assistant"
+      ],
+      "responses": [
+        "Hello! I can help with airport queues, flight-delay estimates, check-in, baggage, and terminal information."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "goodbye",
+        "bye",
+        "see you later",
+        "that's all thanks",
+        "thank you goodbye",
+        "have a good day"
+      ],
+      "responses": [
+        "Safe travels! Come back any time if you need help."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "thanks",
+        "thank you",
+        "many thanks",
+        "that's helpful",
+        "thanks for your help"
+      ],
+      "responses": [
+        "You're welcome. Safe travels!"
+      ]
+    },
+    {
+      "tag": "delay_help",
+      "patterns": [
+        "is my flight delayed",
+        "predict a flight delay",
+        "how late might my flight be",
+        "estimate my departure delay",
+        "will the weather delay flights",
+        "flight delay prediction",
+        "check expected flight delays",
+        "how can I estimate a delay"
+      ],
+      "responses": [
+        "I can estimate a delay from airline, route, departure hour, weekday, weather, and traffic. Use the Flight delay estimator and treat its result as an illustrative estimate, not live flight status."
+      ]
+    },
+    {
+      "tag": "queue_help",
+      "patterns": [
+        "how long is the security line",
+        "estimate the airport queue",
+        "how busy is security",
+        "predict my wait at security",
+        "queue time prediction",
+        "how long will I wait",
+        "security wait time",
+        "is terminal security busy"
+      ],
+      "responses": [
+        "I can estimate a security wait using terminal, time, weekday, passenger volume, and open lanes. Enter those details in the Security queue estimator; the result is based on sample data, not live airport conditions."
+      ]
+    },
+    {
+      "tag": "checkin",
+      "patterns": [
+        "where do I check in",
+        "how early should I arrive",
+        "when should I get to the airport",
+        "where is the check in desk",
+        "check in advice",
+        "how much time before my flight"
+      ],
+      "responses": [
+        "Check your airline's latest guidance and your booking for the recommended arrival time and check-in area. Allow extra time for international travel, baggage drop, and security."
+      ]
+    },
+    {
+      "tag": "baggage",
+      "patterns": [
+        "where is baggage claim",
+        "where do I collect my bags",
+        "my bag is missing",
+        "lost luggage help",
+        "baggage information",
+        "where is the arrivals carousel"
+      ],
+      "responses": [
+        "For baggage collection, follow the Arrivals and Baggage Reclaim signs. If a bag is missing or damaged, contact your airline's baggage service desk before leaving the airport."
+      ]
+    },
+    {
+      "tag": "terminal",
+      "patterns": [
+        "which terminal do I need",
+        "how do I get to another terminal",
+        "where is terminal one",
+        "terminal transfer help",
+        "find my departure terminal",
+        "airport terminal information"
+      ],
+      "responses": [
+        "Terminal assignments and transfer routes depend on your airline and flight. Check your boarding pass or the airport's official flight information screens for current details."
+      ]
+    },
+    {
+      "tag": "human_help",
+      "patterns": [
+        "I need a person",
+        "talk to airport staff",
+        "where is the information desk",
+        "I need special assistance",
+        "help me contact airport staff",
+        "speak to a human"
+      ],
+      "responses": [
+        "Please visit an airport information desk or contact your airline directly. For accessibility or urgent assistance, ask the nearest airport staff member."
+      ]
+    },
+    {
+      "tag": "fallback",
+      "patterns": [
+        "what is the airport weather",
+        "can you book me a flight",
+        "tell me a joke",
+        "what time is it",
+        "find a restaurant",
+        "show me live flight status",
+        "what is my gate number"
+      ],
+      "responses": [
+        "I don't have live airport or booking data. I can offer sample-data estimates for flight delays and security queues, or general check-in, baggage, and terminal guidance."
+      ]
+    }
+  ]
+}
