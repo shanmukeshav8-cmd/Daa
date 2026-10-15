@@ -1,5 +1,34 @@
 .venv/
+venv/
+ENV/
+env/
+
+# Python caches and bytecode
 __pycache__/
 *.py[cod]
+
+# Test and lint caches
 .pytest_cache/
+.mypy_cache/
+
+# Model artifacts (created by training scripts)
 models/*.pkl
+
+# Jupyter
+.ipynb_checkpoints
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Packaging/build
+dist/
+build/
+*.egg-info/
+
+# OS / misc
+.DS_Store
+*.log
+
+# Environment variables
+.env
