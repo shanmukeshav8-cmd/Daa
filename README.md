@@ -1,15 +1,54 @@
-# Airport AI Assistant
+# Airport AI Assistant — Runway
 
-A local Flask web app with an intent-based airport help chatbot, a sample-data flight-delay estimator, and a sample-data security queue estimator. The frontend uses HTML forms and CSS only; Flask handles form submissions and all chatbot and prediction logic. It does not connect to live airline, airport, weather, or booking systems.
+A local Flask web application providing an intent-based airport help chatbot plus two sample-data estimators: a flight-delay estimator and a security-queue estimator. The UI is a simple HTML/CSS frontend that posts forms to Flask; models are trained locally from the files in data/ and saved into models/ by the training scripts. The project is educational/demo-quality — the estimators use small sample datasets and are not live forecasts.
 
-## Requirements
+Stack / Technologies
+- Language: Python 3.10+
+- Framework: Flask
+- Data + ML: pandas, scikit-learn, joblib
+- Notebooks: Jupyter (not required to run app)
 
-- Python 3.10 or newer
-- Packages in `requirements.txt`
+Key features
+- Intent-based assistant (chatbot) driven by data/intents.json
+- Flight-delay estimator trained on data/flight_delay.csv
+- Security queue estimator trained on data/queue_data.csv
+- Simple HTML web UI (templates/index.html) and optional JSON API
+- Training scripts create models/ with trained sklearn pipelines
 
-## Run locally
+Project layout (annotated)
 
-In VS Code, open this project folder and select a Python 3.10 or newer interpreter. In the integrated PowerShell terminal, create and activate a virtual environment, then install the dependencies:
+Daa-main/
+├── README.md                — this file: overview, usage, and structure
+├── .gitignore               — ignores virtual envs, caches, and generated model artifacts
+├── requirements.txt         — runtime and training dependencies
+├── app.py                   — Flask application and JSON API endpoints
+├── train_chatbot.py         — trains intent classifier, writes models/chatbot_model.pkl
+├── train_delay.py          — trains delay estimator, writes models/delay_model.pkl
+├── train_queue.py          — trains queue estimator, writes models/queue_model.pkl
+├── SRS/                    — Software Requirements Specification templates and guidance
+│   └── README.md
+├── data/                   — sample training and runtime data (tracked in repo)
+│   ├── flight_delay.csv
+│   ├── intents.json
+│   └── queue_data.csv
+├── notebooks/              — exploratory & model-training notebooks
+│   ├── eda.ipynb
+│   └── model_training.ipynb
+├── static/                 — front-end static assets (CSS)
+│   └── styles.css
+├── templates/              — Flask HTML templates
+│   └── index.html
+└── tests/                  — unit tests (unittest)
+    └── test_app.py
+
+Notes on the tree
+- Do NOT delete or move files: the application and training scripts reference data/, templates/, static/, and models/ relative to the repository root.
+- The training scripts create a models/ directory at runtime. By default, models/*.pkl are ignored in .gitignore because trained model binaries are typically not committed.
+
+Installation
+1. Create and activate a virtual environment
+
+Windows PowerShell
 
 ```powershell
 py -m venv .venv
@@ -17,38 +56,75 @@ py -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Train all three local models and start the web app:
+macOS / Linux (bash)
 
-```powershell
-python train_chatbot.py
-python train_delay.py
-python train_queue.py
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+2. (Optional) If you plan to run the notebooks interactively, install Jupyter in the environment: `pip install jupyter`
+
+Training models
+
+The project ships with small sample datasets in data/. Each trainer validates required columns and writes a model artifact under models/.
+
+```bash
+python train_chatbot.py    # trains intent classifier using data/intents.json
+python train_delay.py      # trains delay estimator using data/flight_delay.csv
+python train_queue.py      # trains queue estimator using data/queue_data.csv
+```
+
+Starting the web app
+
+After training (or even if you skip training — the UI will load but estimator/chat functionality requires models), start the Flask app:
+
+```bash
 python app.py
 ```
 
-Open http://127.0.0.1:5000. Models are saved in `models/`, which is created by the training scripts. The web page loads without trained models, but assistant and estimator requests return a clear message instructing you to train them first.
+Open http://127.0.0.1:5000 in your browser. The UI shows a "Models ready" indicator when models/chatbot_model.pkl, models/delay_model.pkl and models/queue_model.pkl exist.
 
-The assistant and both estimators submit standard HTML forms to Flask POST routes.
+JSON API (optional)
 
-## Optional JSON API
+- GET /api/health — reports which model files exist
+- POST /api/chat — body JSON: {"message": "Where is baggage claim?"}
+- POST /api/predict/delay — fields: airline, origin, destination, scheduled_hour (0–23), day_of_week (0–6), weather, traffic_level
+- POST /api/predict/queue — fields: terminal (1–3), hour (0–23), day_of_week (0–6), passenger_volume (20–300), open_lanes (1–16)
 
-- `GET /api/health` — reports whether all model files exist.
-- `POST /api/chat` — JSON body: `{"message": "Where is baggage claim?"}`.
-- `POST /api/predict/delay` — JSON fields: `airline`, `origin`, `destination`, `scheduled_hour` (0–23), `day_of_week` (Monday=0 through Sunday=6), `weather` (`clear`, `light_rain`, `fog`, or `storm`), and `traffic_level` (`low`, `medium`, or `high`).
-- `POST /api/predict/queue` — JSON fields: `terminal` (1–3), `hour` (0–23), `day_of_week` (Monday=0 through Sunday=6), `passenger_volume` (20–300), and `open_lanes` (1–16).
+All prediction APIs validate inputs and return estimates in minutes (see app.py for exact validation rules).
 
-Both prediction APIs validate their inputs and return estimates in minutes. The included CSVs are small illustrative training datasets; model results are demonstrations, not operational forecasts.
+Tests
 
-## Retraining
+Run the test suite with unittest after training the models (tests assume the models exist):
 
-Edit the corresponding files in `data/` and rerun the matching `train_*.py` script. Each trainer checks the required columns and writes its model artifact under `models/`.
-
-The `notebooks/eda.ipynb` notebook summarizes the sample data, while `notebooks/model_training.ipynb` runs the same training scripts.
-
-## Tests
-
-After training the models, run the API and validation tests:
-
-```powershell
+```bash
 python -m unittest discover -s tests -v
 ```
+
+Dependencies check
+
+The requirements.txt lists the packages used by the application and training scripts:
+- Flask>=3.0,<4.0
+- joblib>=1.3,<2.0
+- pandas>=2.2,<4.0
+- scikit-learn>=1.5,<2.0
+
+This covers the imports visible in app.py and the train_*.py scripts. The scikit-learn installation will bring in numpy and scipy as needed. If you intend to run notebooks interactively, add Jupyter to your environment.
+
+.gitignore
+
+- The repository ignores models/*.pkl because trained binary artifacts are produced by the training scripts and are usually not committed. Keep data/ and notebooks/ tracked.
+
+What I changed
+
+- Rewrote README.md to present a structured overview, annotated tree, and clear run/install instructions.
+- Left all code, notebooks, data, templates, static files, and tests in place.
+
+If you'd like
+
+- I can add a minimal GitHub Actions workflow to run tests on push (needs to run training or cache model artifacts — tell me if you want that).
+- I can optionally add a requirements-notebooks.txt that includes jupyter for reproducible notebook runs.
+
+If you want me to also update or expand .gitignore with additional common entries (IDE folders, .env, ipynb checkpoints, etc.), I can do that next. Otherwise confirm and I will commit the README.md change now.
