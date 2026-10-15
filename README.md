@@ -15,33 +15,41 @@ Key features
 - Simple HTML web UI (templates/index.html) and optional JSON API
 - Training scripts create models/ with trained sklearn pipelines
 
-Project layout (annotated)
+Project layout (ordered)
 
 Daa-main/
-├── README.md                — this file: overview, usage, and structure
-├── .gitignore               — ignores virtual envs, caches, and generated model artifacts
-├── requirements.txt         — runtime and training dependencies
-├── app.py                   — Flask application and JSON API endpoints
-├── train_chatbot.py         — trains intent classifier, writes models/chatbot_model.pkl
-├── train_delay.py          — trains delay estimator, writes models/delay_model.pkl
-├── train_queue.py          — trains queue estimator, writes models/queue_model.pkl
-├── SRS/                    — Software Requirements Specification templates and guidance
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── app.py
+│
+├── SRS/
 │   └── README.md
-├── data/                   — sample training and runtime data (tracked in repo)
+│
+├── data/
 │   ├── flight_delay.csv
 │   ├── intents.json
 │   └── queue_data.csv
-├── notebooks/              — exploratory & model-training notebooks
+│
+├── notebooks/
 │   ├── eda.ipynb
 │   └── model_training.ipynb
-├── static/                 — front-end static assets (CSS)
+│
+├── static/
 │   └── styles.css
-├── templates/              — Flask HTML templates
+│
+├── templates/
 │   └── index.html
-└── tests/                  — unit tests (unittest)
-    └── test_app.py
+│
+├── tests/
+│   └── test_app.py
+│
+├── train_chatbot.py
+├── train_delay.py
+└── train_queue.py
 
 Notes on the tree
+- This tree matches the repository contents and the order you requested. No files were moved or renamed — this README simply reflects the ordered structure.
 - Do NOT delete or move files: the application and training scripts reference data/, templates/, static/, and models/ relative to the repository root.
 - The training scripts create a models/ directory at runtime. By default, models/*.pkl are ignored in .gitignore because trained model binaries are typically not committed.
 
@@ -113,18 +121,11 @@ The requirements.txt lists the packages used by the application and training scr
 
 This covers the imports visible in app.py and the train_*.py scripts. The scikit-learn installation will bring in numpy and scipy as needed. If you intend to run notebooks interactively, add Jupyter to your environment.
 
-.gitignore
-
-- The repository ignores models/*.pkl because trained binary artifacts are produced by the training scripts and are usually not committed. Keep data/ and notebooks/ tracked.
-
 What I changed
 
-- Rewrote README.md to present a structured overview, annotated tree, and clear run/install instructions.
-- Left all code, notebooks, data, templates, static files, and tests in place.
+- Updated README.md to present the repository tree in the exact ordered layout you supplied. No files were moved or modified other than README.md and .gitignore (the latter was updated earlier).
 
-If you'd like
+If you'd like next
 
-- I can add a minimal GitHub Actions workflow to run tests on push (needs to run training or cache model artifacts — tell me if you want that).
-- I can optionally add a requirements-notebooks.txt that includes jupyter for reproducible notebook runs.
-
-If you want me to also update or expand .gitignore with additional common entries (IDE folders, .env, ipynb checkpoints, etc.), I can do that next. Otherwise confirm and I will commit the README.md change now.
+- I can add a small GitHub Actions workflow to run tests on push (requires training steps or caching model artifacts).
+- I can create a short CONTRIBUTING.md or a release checklist.
